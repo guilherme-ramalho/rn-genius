@@ -27,6 +27,7 @@
     "react/prop-types": "off",
     "import/no-extraneous-dependencies": "off",
     "arrow-body-style": ["error", "as-needed"],
+    "global-require": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
