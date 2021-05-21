@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Audio } from 'expo-av';
 
 import { useInterval } from '../../hooks/index';
+// import beepSound from '../../../assets/sounds/beep.wav';
 
 import {
   Container, CenterCircle, GameBoard, ActionRow, ActionButton, ActionWrapper,
@@ -9,17 +10,24 @@ import {
 
 const Home: React.FC = () => {
   const [activeButton, setActiveButton] = useState<number | undefined>();
+  const beepSound = require('../../../assets/sounds/beep.wav');
 
-  useInterval(async () => {
-    const number = Math.floor(Math.random() * (4 - 1 + 1) + 1);
-    const beep = require('../../../assets/sounds/beep.wav');
-
-    const { sound } = await Audio.Sound.createAsync(beep);
-
-    setActiveButton(number);
+  const playBeepSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(beepSound, {
+      shouldPlay: true,
+    });
 
     await sound.playAsync();
-  }, 1500);
+    // await sound.stopAsync();
+  };
+
+  useInterval(() => {
+    const number = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+
+    playBeepSound();
+
+    setActiveButton(number);
+  });
 
   return (
     <Container>

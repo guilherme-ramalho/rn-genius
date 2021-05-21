@@ -6,13 +6,12 @@ const screenWidth = Dimensions.get('screen').width - 20;
 
 interface ActionButtonProps {
   border: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-  color: string;
+  color: 'yellow' | 'red' | 'blue' | 'green';
   active?: boolean;
 }
 
 export const Container = styled.SafeAreaView`
   margin-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 0}px;
-  background-color: red;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -41,11 +40,11 @@ export const ActionRow = styled.View`
 
 export const CenterCircle = styled.View`
   position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 90px;
   background-color: green;
-  border: 10px solid #282E3A;
+  border: 5px solid #282E3A;
 `;
 
 export const ActionButton = styled.Pressable<ActionButtonProps>`
