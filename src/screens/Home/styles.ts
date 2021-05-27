@@ -7,6 +7,7 @@ const screenWidth = Dimensions.get('screen').width - 20;
 interface ActionButtonProps {
   border: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   color: 'yellow' | 'red' | 'blue' | 'green';
+  onPress: Function;
   active?: boolean;
 }
 
@@ -45,6 +46,17 @@ export const CenterCircle = styled.View`
   border-radius: 90px;
   background-color: green;
   border: 5px solid #282E3A;
+`;
+
+export const ControlsRow = styled.View`
+
+`;
+
+export const ControlButton = styled.Pressable`
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  background-color: red;
 `;
 
 export const ActionButton = styled.Pressable<ActionButtonProps>`
