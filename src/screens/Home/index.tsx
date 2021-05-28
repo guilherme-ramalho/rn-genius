@@ -24,7 +24,6 @@ const Home: React.FC = () => {
     });
 
     await sound.playAsync();
-    // await sound.stopAsync();
   };
 
   const sleep = (delay = 1000) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -35,24 +34,22 @@ const Home: React.FC = () => {
     setGeneratedMoves([...generatedMoves, move]);
   };
 
-  const activateButton = (index: number) => {
+  const activateButton = async (index: number) => {
     playBeepSound();
     setActiveButton(index);
+    await sleep(400);
+    setActiveButton(undefined);
   };
 
   const onActionButtonTouch = (index: number) => {
-    console.log(`Botão clicado: ${index}`);
+    console.log(`Clicked button: ${index}`);
     setPlayedMoves([...playedMoves, index]);
   };
 
   const displayGeneratedMoves = async () => {
-    console.log('displaying moves', generatedMoves);
-
     for (let i = 1; i <= generatedMoves.length; i++) {
       const move = generatedMoves[i - 1];
-      console.log(`movesQty: ${generatedMoves.length} | current ${move}`);
       activateButton(move);
-      // eslint-disable-next-line no-await-in-loop
       await sleep();
     }
 
@@ -68,12 +65,10 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    if (generatedMoves.length === 0) { // Add the first three moves
-      const moves = Array(3).fill(null).map(() => generateRandomMove());
+    if (generatedMoves.length === 0) {
+      const firstMove = generateRandomMove();
 
-      console.log('Initial moves', moves);
-
-      setGeneratedMoves(moves);
+      setGeneratedMoves([firstMove]);
     }
   }, []);
 
@@ -89,8 +84,9 @@ const Home: React.FC = () => {
 
       if (movesAreRight) {
         addNewMove();
+        setPlayedMoves([]);
       } else {
-        alert('Você perdeu!');
+        alert('Too bad! You\'ve missed!');
       }
     }
   }, [playedMoves]);

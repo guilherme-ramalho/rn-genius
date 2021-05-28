@@ -28,6 +28,8 @@
     "import/no-extraneous-dependencies": "off",
     "arrow-body-style": ["error", "as-needed"],
     "global-require": "off",
+    "no-await-in-loop": "off",
+    "no-plusplus": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
