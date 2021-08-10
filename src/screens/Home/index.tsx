@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
 // import beepSound from '../../../assets/sounds/beep.wav';
 
+import BoardCircle from '../../components/BoardCircle';
+
 import {
-  Container, CenterCircle, GameBoard, ActionRow, ActionButton, ActionWrapper, ControlsRow, ControlButton,
+  Container,
+  GameBoard,
+  ActionRow,
+  ActionButton,
+  ActionWrapper,
 } from './styles';
 
 const Home: React.FC = () => {
@@ -125,7 +131,7 @@ const Home: React.FC = () => {
           </ActionRow>
         </ActionWrapper>
       </GameBoard>
-      <CenterCircle />
+      <BoardCircle />
     </Container>
   );
 };

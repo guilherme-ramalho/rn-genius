@@ -39,15 +39,6 @@ export const ActionRow = styled.View`
   width: 100%;
 `;
 
-export const CenterCircle = styled.View`
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  border-radius: 90px;
-  background-color: green;
-  border: 5px solid #282E3A;
-`;
-
 export const ControlsRow = styled.View`
 
 `;
@@ -62,7 +53,7 @@ export const ControlButton = styled.Pressable`
 export const ActionButton = styled.Pressable<ActionButtonProps>`
   flex: 1;
   background-color: ${({ color }) => color};
-  border: 5px solid #282E3A;
+  border: 1px solid #282E3A;
   opacity: ${({ active }) => (active ? 1 : 0.3)};
 
   ${({ border }) => css`border-${border}-radius: ${screenWidth / 2}px`}
