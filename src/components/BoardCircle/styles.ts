@@ -1,29 +1,32 @@
 import styled from 'styled-components/native';
 
-export const Circle = styled.View`
-  flex: 1;
+export const Wrapper = styled.View`
   position: absolute;
+`;
+
+export const Circle = styled.ImageBackground`
+  flex: 1;
+  position: relative;
   width: 180px;
   height: 180px;
   border-radius: 90px;
   background-color: #AFB0B3;
-  border: 15px solid #000;
+  border: 2px solid #000;
   justify-content: center;
   align-items: center;
 `;
 
-export const LogoRow = styled.View`
-  height: 90px;
-  width: 180px;
-  background-color: blue;
-  /* border-top-left-radius: 90px;
-  border-top-right-radius: 90px; */
+export const ScoreHolder = styled.View`
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 30px;
+  background-color: #773F33;
+  width: 70px;
+  border-radius: 3px;
 `;
 
-export const ControlsRow = styled.View`
-  height: 90px;
-  width: 180px;
-  background-color: red;
-  /* border-bottom-left-radius: 90px;
-  border-bottom-right-radius: 90px; */
+export const ScoreText = styled.Text`
+  font-size: 32px;
+  color: #E07E6E;
 `;

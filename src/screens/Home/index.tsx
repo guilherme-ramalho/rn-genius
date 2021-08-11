@@ -131,7 +131,7 @@ const Home: React.FC = () => {
           </ActionRow>
         </ActionWrapper>
       </GameBoard>
-      <BoardCircle />
+      <BoardCircle score={generatedMoves.length - 1} />
     </Container>
   );
 };

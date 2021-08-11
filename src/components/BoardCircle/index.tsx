@@ -1,17 +1,27 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { Circle, LogoRow, ControlsRow } from './styles';
+import BoardImage from '../../../assets/img/board-brand.png';
 
-const BoardCircle: React.FC = () => (
-  <Circle>
-    {/* <LogoRow>
-      <Text>teste</Text>
-    </LogoRow>
-    <ControlsRow>
-      <Text>teste</Text>
-    </ControlsRow> */}
-  </Circle>
-);
+import {
+  Circle, ScoreHolder, ScoreText, Wrapper,
+} from './styles';
+
+interface IProps {
+  score: number;
+}
+
+const BoardCircle: React.FC<IProps> = ({ score }) => {
+  const getScore = () => (score < 10 ? `0${score}` : score.toString());
+
+  return (
+    <Wrapper>
+      <Circle source={BoardImage}>
+        <ScoreHolder>
+          <ScoreText>{getScore()}</ScoreText>
+        </ScoreHolder>
+      </Circle>
+    </Wrapper>
+  );
+};
 
 export default BoardCircle;
