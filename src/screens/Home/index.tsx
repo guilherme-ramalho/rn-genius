@@ -97,7 +97,7 @@ const Home: React.FC = () => {
       setGameStarted(true);
       console.log('The game was started');
     } else {
-
+      resetGame();
     }
   }, [gameStarted]);
 
