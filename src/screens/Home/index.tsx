@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 // import beepSound from '../../../assets/sounds/beep.wav';
 
 import BoardCircle from '../../components/BoardCircle';
@@ -10,21 +11,27 @@ import {
   ActionRow,
   ActionButton,
   ActionWrapper,
+  ControlsRow,
+  ControlButton,
 } from './styles';
+
+const beepSound = require('../../../assets/sounds/beep.wav');
 
 const Home: React.FC = () => {
   const [activeButton, setActiveButton] = useState<number | undefined>();
   const [generatedMoves, setGeneratedMoves] = useState<Array<number>>([]);
   const [playedMoves, setPlayedMoves] = useState<Array<number>>([]);
-  const beepSound = require('../../../assets/sounds/beep.wav');
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const boardColors = ['yellow', 'blue', 'red', 'green'];
 
-  const generateRandomMove = () => {
+  const generateRandomMove = (): number => {
     const number = Math.floor(Math.random() * (4 - 1 + 1) + 1);
 
     return number;
   };
 
-  const playBeepSound = async () => {
+  const playBeepSound = async (): Promise<void> => {
     const { sound } = await Audio.Sound.createAsync(beepSound, {
       shouldPlay: true,
     });
@@ -34,25 +41,31 @@ const Home: React.FC = () => {
 
   const sleep = (delay = 1000) => new Promise((resolve) => setTimeout(resolve, delay));
 
-  const addNewMove = () => {
+  const addNewMove = (): void => {
     const move = generateRandomMove();
 
     setGeneratedMoves([...generatedMoves, move]);
   };
 
-  const activateButton = async (index: number) => {
+  const activateButton = async (index: number): Promise<void> => {
     playBeepSound();
     setActiveButton(index);
     await sleep(400);
     setActiveButton(undefined);
   };
 
-  const onActionButtonTouch = (index: number) => {
-    console.log(`Clicked button: ${index}`);
-    setPlayedMoves([...playedMoves, index]);
+  const onActionButtonTouch = (index: number): void => {
+    if (!isPlaying && gameStarted) {
+      const pressedColor = boardColors[index - 1];
+
+      console.log(`Clicked the ${pressedColor} button`);
+      setPlayedMoves([...playedMoves, index]);
+    } else {
+      console.log('Action button actions not allowed at this time');
+    }
   };
 
-  const displayGeneratedMoves = async () => {
+  const displayGeneratedMoves = async (): Promise<void> => {
     for (let i = 1; i <= generatedMoves.length; i++) {
       const move = generatedMoves[i - 1];
       activateButton(move);
@@ -62,7 +75,7 @@ const Home: React.FC = () => {
     setActiveButton(undefined);
   };
 
-  const areMovesRight = () => {
+  const areMovesRight = (): boolean => {
     const allMovesAreRight = playedMoves.every(
       (current, index) => current === generatedMoves[index],
     );
@@ -70,35 +83,60 @@ const Home: React.FC = () => {
     return allMovesAreRight;
   };
 
+  const resetGame = (): void => {
+    setGameStarted(false);
+    setIsPlaying(false);
+    setGeneratedMoves([]);
+  };
+
   useEffect(() => {
-    if (generatedMoves.length === 0) {
+    if (gameStarted && generatedMoves.length === 0) {
       const firstMove = generateRandomMove();
 
       setGeneratedMoves([firstMove]);
-    }
-  }, []);
+      setGameStarted(true);
+      console.log('The game was started');
+    } else {
 
+    }
+  }, [gameStarted]);
+
+  // Displays the moves everytime a new one is added
   useEffect(() => {
     if (generatedMoves.length > 0) {
+      console.log('Displaying the next moves');
       displayGeneratedMoves();
     }
   }, [generatedMoves]);
 
+  // Checks the played moves
   useEffect(() => {
-    if (playedMoves.length === generatedMoves.length) {
+    if (gameStarted && playedMoves.length === generatedMoves.length) {
       const movesAreRight = areMovesRight();
 
       if (movesAreRight) {
+        console.log('Moves are right. Adding a new move.');
         addNewMove();
-        setPlayedMoves([]);
       } else {
         alert('Too bad! You\'ve missed!');
+        resetGame();
       }
+
+      setPlayedMoves([]);
     }
   }, [playedMoves]);
 
   return (
     <Container>
+      <ControlsRow>
+        <ControlButton onPress={() => setGameStarted(!gameStarted)}>
+          {isPlaying ? (
+            <MaterialCommunityIcons name="play" size={48} color="#fff" />
+          ) : (
+            <MaterialCommunityIcons name="stop" size={48} color="#fff" />
+          )}
+        </ControlButton>
+      </ControlsRow>
       <GameBoard>
         <ActionWrapper>
           <ActionRow>
@@ -130,8 +168,8 @@ const Home: React.FC = () => {
             />
           </ActionRow>
         </ActionWrapper>
+        <BoardCircle score={generatedMoves.length - 1} />
       </GameBoard>
-      <BoardCircle score={generatedMoves.length - 1} />
     </Container>
   );
 };

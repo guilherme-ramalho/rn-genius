@@ -14,12 +14,12 @@ interface ActionButtonProps {
 export const Container = styled.SafeAreaView`
   margin-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 0}px;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  position: relative;
 `;
 
 export const GameBoard = styled.View`
+  position: relative;
   justify-content: center;
   align-items: center;
   width: ${screenWidth}px;
@@ -40,14 +40,21 @@ export const ActionRow = styled.View`
 `;
 
 export const ControlsRow = styled.View`
-
+  flex-direction: row;
+  background-color: green;
+  width: 100%;
+  justify-content: space-around;
+  margin: 50px 0;
 `;
 
 export const ControlButton = styled.Pressable`
-  height: 70px;
-  width: 70px;
-  border-radius: 35px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
   background-color: red;
+  justify-content: center;
+  align-items: center;
+  border: 7px solid #000;
 `;
 
 export const ActionButton = styled.Pressable<ActionButtonProps>`
