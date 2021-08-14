@@ -113,6 +113,7 @@ const Home: React.FC = () => {
     setGameStarted(false);
     setIsDisplayingMoves(false);
     setGeneratedMoves([]);
+    setPlayedMoves([]);
   };
 
   useEffect(() => {
@@ -137,20 +138,19 @@ const Home: React.FC = () => {
 
   // Checks the played moves
   useEffect(() => {
-    if (gameStarted && playedMoves.length === generatedMoves.length) {
+    if (gameStarted && playedMoves.length >= 1) {
       const movesAreRight = areMovesRight();
 
-      if (movesAreRight) {
+      if (movesAreRight && playedMoves.length === generatedMoves.length) {
         playSound('success');
         console.log('Moves are right. Adding a new move.');
         addNewMove();
-      } else {
+        setPlayedMoves([]);
+      } else if (!movesAreRight) {
         playSound('error');
         alert('Too bad! You\'ve missed!');
         resetGame();
       }
-
-      setPlayedMoves([]);
     }
   }, [playedMoves]);
 
