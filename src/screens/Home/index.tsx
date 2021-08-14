@@ -17,8 +17,6 @@ import {
   ControlButtonGradient,
 } from './styles';
 
-import backgroundImg from '../../../assets/img/background.png';
-
 const beepSound = require('../../../assets/sounds/beep.wav');
 const errorSound = require('../../../assets/sounds/error.wav');
 const successSound = require('../../../assets/sounds/success.wav');
