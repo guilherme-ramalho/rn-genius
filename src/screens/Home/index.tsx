@@ -110,6 +110,7 @@ const Home: React.FC = () => {
   };
 
   const resetGame = (): void => {
+    console.log('Reseting the game...');
     setGameStarted(false);
     setIsDisplayingMoves(false);
     setGeneratedMoves([]);
@@ -142,11 +143,12 @@ const Home: React.FC = () => {
       const movesAreRight = areMovesRight();
 
       if (movesAreRight && playedMoves.length === generatedMoves.length) {
-        playSound('success');
         console.log('Moves are right. Adding a new move.');
+        playSound('success');
         addNewMove();
         setPlayedMoves([]);
       } else if (!movesAreRight) {
+        console.log('Wrong move');
         playSound('error');
         alert('Too bad! You\'ve missed!');
         resetGame();
