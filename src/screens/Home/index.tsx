@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-// import beepSound from '../../../assets/sounds/beep.wav';
 
 import BoardCircle from '../../components/BoardCircle';
 
@@ -76,7 +75,7 @@ const Home: React.FC = () => {
     if (!isDisplayingMoves && gameStarted) {
       const pressedColor = boardColors[index - 1];
 
-      console.log(`Clicked the ${pressedColor} button`);
+      console.log(`Touched the ${pressedColor} button`);
       activateButton(index);
       setPlayedMoves([...playedMoves, index]);
     } else {
@@ -122,7 +121,7 @@ const Home: React.FC = () => {
 
       setGeneratedMoves([firstMove]);
       setGameStarted(true);
-      console.log('The game was started');
+      console.log('The game has started');
     } else {
       resetGame();
     }

@@ -13,7 +13,6 @@ interface ActionButtonProps {
 }
 
 export const Container = styled.View`
-  margin-top: ${Platform.OS === 'android' ? Constants.statusBarHeight - 24 : 0}px;
   height: 100%;
   justify-content: flex-start;
   align-items: center;
