@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components/native';
 import { Dimensions, Platform } from 'react-native';
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const screenWidth = Dimensions.get('screen').width - 20;
+const screenWidth = Dimensions.get('screen').width - 50;
 
 interface ActionButtonProps {
   border: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
@@ -11,10 +12,16 @@ interface ActionButtonProps {
   active?: boolean;
 }
 
-export const Container = styled.SafeAreaView`
-  margin-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 0}px;
+export const Container = styled.View`
+  margin-top: ${Platform.OS === 'android' ? Constants.statusBarHeight - 24 : 0}px;
   height: 100%;
   justify-content: flex-start;
+  align-items: center;
+`;
+
+export const Background = styled(LinearGradient)`
+  height: 100%;
+  width: 100%;
   align-items: center;
 `;
 
@@ -49,11 +56,15 @@ export const ControlsRow = styled.View`
 export const ControlButton = styled.Pressable`
   height: 100px;
   width: 100px;
+`;
+
+export const ControlButtonGradient = styled(LinearGradient)`
+  height: 100%;
+  width: 100%;
   border-radius: 50px;
-  background-color: red;
   justify-content: center;
   align-items: center;
-  border: 7px solid #000;
+  border: 5px solid #fff;
 `;
 
 export const ActionButton = styled.Pressable<ActionButtonProps>`

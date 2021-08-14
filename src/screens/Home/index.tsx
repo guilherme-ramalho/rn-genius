@@ -13,7 +13,11 @@ import {
   ActionWrapper,
   ControlsRow,
   ControlButton,
+  Background,
+  ControlButtonGradient,
 } from './styles';
+
+import backgroundImg from '../../../assets/img/background.png';
 
 const beepSound = require('../../../assets/sounds/beep.wav');
 const errorSound = require('../../../assets/sounds/error.wav');
@@ -129,14 +133,13 @@ const Home: React.FC = () => {
   // Displays the moves everytime a new one is added
   useEffect(() => {
     if (generatedMoves.length > 0) {
-      console.log('Displaying the next moves', generatedMoves);
+      console.log('Displaying the next moves');
       displayGeneratedMoves();
     }
   }, [generatedMoves]);
 
   // Checks the played moves
   useEffect(() => {
-    console.log('this are the moves and plays', generatedMoves, playedMoves);
     if (gameStarted && playedMoves.length === generatedMoves.length) {
       const movesAreRight = areMovesRight();
 
@@ -156,44 +159,48 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <ControlsRow>
-        <ControlButton onPress={() => setGameStarted(!gameStarted)}>
-          <MaterialCommunityIcons name={gameStarted ? 'stop' : 'play'} size={48} color="#fff" />
-        </ControlButton>
-      </ControlsRow>
-      <GameBoard>
-        <ActionWrapper>
-          <ActionRow>
-            <ActionButton
-              active={activeButton === 1}
-              onPress={() => onActionButtonTouch(1)}
-              border="top-left"
-              color="yellow"
-            />
-            <ActionButton
-              active={activeButton === 2}
-              onPress={() => onActionButtonTouch(2)}
-              border="top-right"
-              color="blue"
-            />
-          </ActionRow>
-          <ActionRow>
-            <ActionButton
-              active={activeButton === 3}
-              onPress={() => onActionButtonTouch(3)}
-              border="bottom-left"
-              color="red"
-            />
-            <ActionButton
-              active={activeButton === 4}
-              onPress={() => onActionButtonTouch(4)}
-              border="bottom-right"
-              color="green"
-            />
-          </ActionRow>
-        </ActionWrapper>
-        <BoardCircle score={generatedMoves.length} />
-      </GameBoard>
+      <Background colors={['#690099', '#750031']}>
+        <ControlsRow>
+          <ControlButton onPress={() => setGameStarted(!gameStarted)}>
+            <ControlButtonGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
+              <MaterialCommunityIcons name={gameStarted ? 'stop' : 'play'} size={48} color="#fff" />
+            </ControlButtonGradient>
+          </ControlButton>
+        </ControlsRow>
+        <GameBoard>
+          <ActionWrapper>
+            <ActionRow>
+              <ActionButton
+                active={activeButton === 1}
+                onPress={() => onActionButtonTouch(1)}
+                border="top-left"
+                color="yellow"
+              />
+              <ActionButton
+                active={activeButton === 2}
+                onPress={() => onActionButtonTouch(2)}
+                border="top-right"
+                color="blue"
+              />
+            </ActionRow>
+            <ActionRow>
+              <ActionButton
+                active={activeButton === 3}
+                onPress={() => onActionButtonTouch(3)}
+                border="bottom-left"
+                color="red"
+              />
+              <ActionButton
+                active={activeButton === 4}
+                onPress={() => onActionButtonTouch(4)}
+                border="bottom-right"
+                color="green"
+              />
+            </ActionRow>
+          </ActionWrapper>
+          <BoardCircle score={generatedMoves.length} />
+        </GameBoard>
+      </Background>
     </Container>
   );
 };
