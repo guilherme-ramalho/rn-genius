@@ -16,6 +16,8 @@ import {
 } from './styles';
 
 const beepSound = require('../../../assets/sounds/beep.wav');
+const errorSound = require('../../../assets/sounds/error.wav');
+const successSound = require('../../../assets/sounds/success.wav');
 
 const Home: React.FC = () => {
   const [activeButton, setActiveButton] = useState<number | undefined>();
@@ -32,8 +34,21 @@ const Home: React.FC = () => {
     return number;
   };
 
-  const playBeepSound = async (): Promise<void> => {
-    const { sound } = await Audio.Sound.createAsync(beepSound, {
+  const getSoundToPlay = (soundTitle: string) => {
+    switch (soundTitle) {
+      case 'error':
+        return errorSound;
+      case 'success':
+        return successSound;
+      default:
+        return beepSound;
+    }
+  };
+
+  const playSound = async (soundTitle: 'beep'| 'error' | 'success'): Promise<void> => {
+    const soundToPlay = getSoundToPlay(soundTitle);
+
+    const { sound } = await Audio.Sound.createAsync(soundToPlay, {
       shouldPlay: true,
     });
 
@@ -49,7 +64,7 @@ const Home: React.FC = () => {
   };
 
   const activateButton = async (index: number): Promise<void> => {
-    playBeepSound();
+    playSound('beep');
     setActiveButton(index);
     await sleep(400);
     setActiveButton(undefined);
@@ -68,6 +83,10 @@ const Home: React.FC = () => {
   };
 
   const displayGeneratedMoves = async (): Promise<void> => {
+    if (generatedMoves.length > 1) {
+      await sleep(1000);
+    }
+
     setIsDisplayingMoves(true);
 
     for (let i = 1; i <= generatedMoves.length; i++) {
@@ -122,9 +141,11 @@ const Home: React.FC = () => {
       const movesAreRight = areMovesRight();
 
       if (movesAreRight) {
+        playSound('success');
         console.log('Moves are right. Adding a new move.');
         addNewMove();
       } else {
+        playSound('error');
         alert('Too bad! You\'ve missed!');
         resetGame();
       }

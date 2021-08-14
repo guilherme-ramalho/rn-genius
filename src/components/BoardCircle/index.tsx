@@ -11,7 +11,11 @@ interface IProps {
 }
 
 const BoardCircle: React.FC<IProps> = ({ score }) => {
-  const getScore = () => (score < 10 ? `0${score}` : score.toString());
+  const getScore = () => {
+    const finalScore = score > 0 ? score - 1 : score;
+
+    return finalScore < 10 ? `0${finalScore}` : finalScore.toString();
+  };
 
   return (
     <Wrapper>
