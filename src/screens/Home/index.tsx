@@ -22,10 +22,11 @@ const Home: React.FC = () => {
   const [generatedMoves, setGeneratedMoves] = useState<Array<number>>([]);
   const [playedMoves, setPlayedMoves] = useState<Array<number>>([]);
   const [gameStarted, setGameStarted] = useState<boolean>(false);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isDisplayingMoves, setIsDisplayingMoves] = useState<boolean>(false);
   const boardColors = ['yellow', 'blue', 'red', 'green'];
 
   const generateRandomMove = (): number => {
+    // This generates a number between 1 and 4
     const number = Math.floor(Math.random() * (4 - 1 + 1) + 1);
 
     return number;
@@ -54,23 +55,28 @@ const Home: React.FC = () => {
     setActiveButton(undefined);
   };
 
-  const onActionButtonTouch = (index: number): void => {
-    if (!isPlaying && gameStarted) {
+  const onActionButtonTouch = async (index: number): Promise<void> => {
+    if (!isDisplayingMoves && gameStarted) {
       const pressedColor = boardColors[index - 1];
 
       console.log(`Clicked the ${pressedColor} button`);
+      activateButton(index);
       setPlayedMoves([...playedMoves, index]);
     } else {
-      console.log('Action button actions not allowed at this time');
+      console.log('Action button not allowed at this time');
     }
   };
 
   const displayGeneratedMoves = async (): Promise<void> => {
+    setIsDisplayingMoves(true);
+
     for (let i = 1; i <= generatedMoves.length; i++) {
       const move = generatedMoves[i - 1];
       activateButton(move);
       await sleep();
     }
+
+    setIsDisplayingMoves(false);
 
     setActiveButton(undefined);
   };
@@ -85,7 +91,7 @@ const Home: React.FC = () => {
 
   const resetGame = (): void => {
     setGameStarted(false);
-    setIsPlaying(false);
+    setIsDisplayingMoves(false);
     setGeneratedMoves([]);
   };
 
@@ -104,13 +110,14 @@ const Home: React.FC = () => {
   // Displays the moves everytime a new one is added
   useEffect(() => {
     if (generatedMoves.length > 0) {
-      console.log('Displaying the next moves');
+      console.log('Displaying the next moves', generatedMoves);
       displayGeneratedMoves();
     }
   }, [generatedMoves]);
 
   // Checks the played moves
   useEffect(() => {
+    console.log('this are the moves and plays', generatedMoves, playedMoves);
     if (gameStarted && playedMoves.length === generatedMoves.length) {
       const movesAreRight = areMovesRight();
 
@@ -130,11 +137,7 @@ const Home: React.FC = () => {
     <Container>
       <ControlsRow>
         <ControlButton onPress={() => setGameStarted(!gameStarted)}>
-          {isPlaying ? (
-            <MaterialCommunityIcons name="play" size={48} color="#fff" />
-          ) : (
-            <MaterialCommunityIcons name="stop" size={48} color="#fff" />
-          )}
+          <MaterialCommunityIcons name={gameStarted ? 'stop' : 'play'} size={48} color="#fff" />
         </ControlButton>
       </ControlsRow>
       <GameBoard>
@@ -168,7 +171,7 @@ const Home: React.FC = () => {
             />
           </ActionRow>
         </ActionWrapper>
-        <BoardCircle score={generatedMoves.length - 1} />
+        <BoardCircle score={generatedMoves.length} />
       </GameBoard>
     </Container>
   );

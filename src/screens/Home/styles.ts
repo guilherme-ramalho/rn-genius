@@ -41,7 +41,6 @@ export const ActionRow = styled.View`
 
 export const ControlsRow = styled.View`
   flex-direction: row;
-  background-color: green;
   width: 100%;
   justify-content: space-around;
   margin: 50px 0;

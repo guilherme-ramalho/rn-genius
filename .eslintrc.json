@@ -30,6 +30,8 @@
     "global-require": "off",
     "no-await-in-loop": "off",
     "no-plusplus": "off",
+    "no-console": "off",
+    "no-alert": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
