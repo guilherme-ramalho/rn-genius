@@ -11,9 +11,3 @@ export const ButtonText = styled.Text`
   font-size: 18px;
   font-weight: 600;
 `;
-
-export const SafeArea = styled.SafeAreaView`
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`;

@@ -25,3 +25,9 @@ export const Container = styled.View`
   justify-content: flex-start;
   align-items: center;
 `;
+
+export const SafeArea = styled.SafeAreaView`
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
