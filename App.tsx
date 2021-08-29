@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import Routes from './src/routes';
+import Routes from './src/router';
 
 const App: React.FC = () => (
   <>

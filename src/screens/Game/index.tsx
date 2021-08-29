@@ -5,22 +5,21 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import BoardCircle from '../../components/BoardCircle';
 
 import {
-  Container,
   GameBoard,
   ActionRow,
   ActionButton,
   ActionWrapper,
   ControlsRow,
   ControlButton,
-  Background,
-  ControlButtonGradient,
 } from './styles';
+
+import { ControlButtonGradient, Container, Background } from '../../styles';
 
 const beepSound = require('../../../assets/sounds/beep.wav');
 const errorSound = require('../../../assets/sounds/error.wav');
 const successSound = require('../../../assets/sounds/success.wav');
 
-const Home: React.FC = () => {
+const Game: React.FC = () => {
   const [activeButton, setActiveButton] = useState<number | undefined>();
   const [generatedMoves, setGeneratedMoves] = useState<Array<number>>([]);
   const [playedMoves, setPlayedMoves] = useState<Array<number>>([]);
@@ -158,10 +157,10 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <Background colors={['#690099', '#750031']}>
+      <Background>
         <ControlsRow>
           <ControlButton onPress={() => setGameStarted(!gameStarted)}>
-            <ControlButtonGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
+            <ControlButtonGradient>
               <MaterialCommunityIcons name={gameStarted ? 'stop' : 'play'} size={48} color="#fff" />
             </ControlButtonGradient>
           </ControlButton>
@@ -204,4 +203,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Game;

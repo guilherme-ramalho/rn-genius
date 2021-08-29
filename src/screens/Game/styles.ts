@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components/native';
-import { Dimensions, Platform } from 'react-native';
-import Constants from 'expo-constants';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Dimensions } from 'react-native';
 
 const screenWidth = Dimensions.get('screen').width - 50;
 
@@ -11,18 +9,6 @@ interface ActionButtonProps {
   onPress: Function;
   active?: boolean;
 }
-
-export const Container = styled.View`
-  height: 100%;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-export const Background = styled(LinearGradient)`
-  height: 100%;
-  width: 100%;
-  align-items: center;
-`;
 
 export const GameBoard = styled.View`
   position: relative;
@@ -55,15 +41,6 @@ export const ControlsRow = styled.View`
 export const ControlButton = styled.Pressable`
   height: 100px;
   width: 100px;
-`;
-
-export const ControlButtonGradient = styled(LinearGradient)`
-  height: 100%;
-  width: 100%;
-  border-radius: 50px;
-  justify-content: center;
-  align-items: center;
-  border: 5px solid #fff;
 `;
 
 export const ActionButton = styled.Pressable<ActionButtonProps>`
