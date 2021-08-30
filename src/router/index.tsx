@@ -7,11 +7,9 @@ import Lobby from '../screens/Lobby';
 
 import { RootStackParamsList } from './paramsList';
 
-interface RouteProps {}
-
 const Stack = createNativeStackNavigator<RootStackParamsList>();
 
-const EntryPoint: React.FC<RouteProps> = () => (
+const EntryPoint: React.FC = () => (
   <NavigationContainer>
     <Stack.Navigator
       initialRouteName="Menu"

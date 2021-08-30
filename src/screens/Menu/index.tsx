@@ -1,26 +1,26 @@
 import React from 'react';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button, ButtonText } from './styles';
 import {
   ControlButtonGradient,
 } from '../../styles';
 import Wrapper from '../../components/Wrapper';
-import { RootStackParamsList } from '../../router/paramsList';
+import { NavigationProps } from '../../router/paramsList';
 
-interface MenuProps {
-  navigation: NativeStackNavigationProp<RootStackParamsList, 'Menu'>;
-}
-
-const Menu: React.FC<MenuProps> = ({ navigation }) => (
+const Menu: React.FC<NavigationProps<'Menu'>> = ({ navigation }) => (
   <Wrapper>
     <Button onPress={() => navigation.navigate('Game')}>
       <ControlButtonGradient>
         <ButtonText>Single Player</ButtonText>
       </ControlButtonGradient>
     </Button>
-    <Button onPress={() => navigation.navigate('Lobby')}>
+    <Button onPress={() => navigation.navigate('Lobby', { lobbyType: 'create' })}>
       <ControlButtonGradient>
-        <ButtonText>Multiplayer</ButtonText>
+        <ButtonText>Create Lobby</ButtonText>
+      </ControlButtonGradient>
+    </Button>
+    <Button onPress={() => navigation.navigate('Lobby', { lobbyType: 'join' })}>
+      <ControlButtonGradient>
+        <ButtonText>Join Lobby</ButtonText>
       </ControlButtonGradient>
     </Button>
   </Wrapper>
