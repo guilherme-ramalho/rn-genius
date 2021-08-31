@@ -1,5 +1,6 @@
 import Pusher from 'pusher-js/react-native';
-import Config from 'react-native-config';
+// eslint-disable-next-line import/no-unresolved
+import { PUSHER_ID, PUSHER_CLUSTER } from 'react-native-dotenv';
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -7,8 +8,6 @@ Pusher.logToConsole = true;
 interface EventMessage {
   message: string;
 }
-
-const { PUSHER_ID, PUSHER_CLUSTER } = Config;
 
 if (!PUSHER_ID || !PUSHER_CLUSTER) {
   throw new Error('Pusher .env variables are required but they are not available');
